@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div id="liste">
+</div>
+
+
+
+<div id="ogrenci_form">
+</div>
+
+<div id="kontrol">
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script>
+    // detay getirme
+    $(document).ready(function () {
+        $(document).on("click", ".detay", function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-studentid");
+            $.ajax({
+                url: '/home/form',
+                data: { id: id },
+                method: 'post',
+                success: function (donen_veri) {
+                    $('#ogrenci_form').html(donen_veri);
+                },
+                error: function (donen_veri) {
+                    $("#liste").html("!! ERROR BLOĞU 1 !!");
+                },
+                dataType: "html"
+            });
+        });
+    });
+
+    // liste getirme
+    $.ajax({
+        url: '/home/liste',
+        method: 'post',
+        success: function (donen_veri) {
+            $('#liste').html(donen_veri);
+        },
+        error: function (donen_veri) {
+            $("#liste").html("!! listeleme ERROR BLOĞU !!");
+        },
+        dataType: "html"
+    });
+
+
+    // kaydetme
+    $(function () {
+        $(document).on("click", ".kaydet", function (e) {
+            e.preventDefault();
+            var id = $(this).attr("name");
+            $('#kontrol').html("Kaydediliyor...")
+
+            $.ajax({
+                type: 'POST',
+                url: '/home/kayit',
+                dataType: 'json',
+                data: $("form").serialize(),
+                success: function (donen_veri) {
+                    $("#kontrol").html($("form").serialize());
+                    $("#kontrol").html(donen_veri);
+                    $('#liste').html(donen_veri);
+                    let w = jQuery.parseJSON(donen_veri);
+                    console.log(w);
+                    
+                    
+                    // tekrardan listelemeliyiz
+                    // --------
+                    $.ajax({
+                        url: '/home/liste',
+                        method: 'post',
+                        success: function (donen_veri) {
+                            $('#liste').html(donen_veri);
+                        },
+                        error: function (donen_veri) {
+                            $("#liste").html("!! listeleme ERROR BLOĞU !!");
+                        },
+                        dataType: "html"
+                    });
+                    //---------
+                    alert("kayıt tamam");
+                },
+                error: function (request, ajaxOptions, thrownError) {
+                    $("#kontrol").html("!! ERROR 3 !!");
+                }
+            });
+        });
+    });
+
+    // güncelleme
+    $(function () {
+        $(document).on("click", "#btnguncelle", function (e) {
+            e.preventDefault();
+            let ogrenci = {
+                OgrenciId: $("#OgrenciId").val(),
+                AdSoyad: $("#AdSoyad").val(),
+                BolumId: $("#Bolum").val(),
+                HobiId: $("#Hobiler").val(),
+                HocaId: $("#Sınıf_ogr").val(),
+                RHocaId: $("#rehber_ogr").val(),
+            };
+            $.ajax({
+                type: "post",
+                url: '/home/guncelle',
+                data: ogrenci,
+                success: function (func) {
+                    //let result = jQuery.parseJSON(func);
+                    let w = jQuery.parseJSON(func);
+                    console.log(w);
+
+                    //-------tekrardan listeleyelim
+                    $.ajax({
+                        url: '/home/liste',
+                        method: 'post',
+                        success: function (donen_veri) {
+                            $('#liste').html(donen_veri);
+                        },
+                        error: function (donen_veri) {
+                            $("#liste").html("!!günceleme listelemesi ERROR BLOĞU !!");
+                        },
+                        dataType: "html"
+                    });
+                    //-------
+
+                    alert("guncelleme tamam");
+                },
+                error: function (request, ajaxOptions, thrownError) {
+                    alert("hata");
+                }
+            });
+        });
+    });
+
+
+</script>
+
+
+

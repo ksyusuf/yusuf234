@@ -1,0 +1,33 @@
+﻿@model List<Ogrenci>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ad soyad</th>
+            <td>böl</td>
+            <td>hob</td>
+            <td>sınıf</td>
+            <td>rehber</td>
+            <td>işlem</td>
+        </tr>
+    </thead>
+    <tbody id="student-list">
+
+
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.AdSoyad</td>
+                <td>@student.BolumId</td>
+                <td>@student.HobiId</td>
+                <td>@student.HocaId</td>
+                <td>@student.HocaId</td>
+                
+                <td>
+                    <a href="#" data-studentid="@student.OgrenciId" class="btn btn-success btn-get-student detay">detay</a>
+                    <a href="#" data-studentid="@student.OgrenciId" class="btn btn-success btn-get-student sil">sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
