@@ -2,12 +2,20 @@
 
 <form>
     <input type="hidden" id="OgrenciId" name="OgrenciId" value="@(Model?.OgrenciId)" />
-    <input type="text" id="AdSoyad" name="AdSoyad" value="@(Model?.AdSoyad)" />
-    <input type="text" id="Bolum" name="BolumId" value="@(Model?.BolumId)" />
-    <input type="text" id="Hobiler" name="HobiId" value="@(Model?.HobiId)" />
-    <input type="text" id="Sınıf_ogr" name="HocaId" value="@(Model?.HocaId)" />
-    <input type="text" id="rehber_ogr" name="RHocaId" value="@(Model?.RHocaId)" />
-    <br /><br />
-    <button type="button" id="btnkaydet" name="btnkaydet" class="btn btn-outline-success kaydet">Kaydet</button>
-    <button type="button" id="btnguncelle" name="btnguncelle" class="btn btn-outline-warning">Güncelle</button>
+    <table class="table table-bordered">
+        <tbody id="student-list">
+            <tr>
+                <td>Ad Soyad<input type="text" id="AdSoyad" name="AdSoyad" value="@(Model?.AdSoyad)" /></td>
+                <td><input type="text" id="Bolum" name="BolumId" value="@(Model?.BolumId)" /></td>
+                <td><input type="text" id="Hobiler" name="HobiId" value="@(Model?.HobiId)" /></td>
+                <td><input type="text" id="Sınıf_ogr" name="HocaId" value="@(Model?.HocaId)" /></td>
+                <td><input type="text" id="rehber_ogr" name="RHocaId" value="@(Model?.RHocaId)" /></td>
+
+                <td>
+                    <button type="button" id="btnkaydet" name="btnkaydet" class="btn btn-outline-success kaydet">Kaydet</button>
+                    <button type="button" id="btnguncelle" name="btnguncelle" class="btn btn-outline-warning">Güncelle</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </form>

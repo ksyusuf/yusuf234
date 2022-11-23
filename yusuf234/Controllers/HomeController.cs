@@ -68,7 +68,7 @@ namespace yusuf234.Controllers
             //Console.WriteLine(ogrenci.HobiId);
             //Console.WriteLine(ogrenci.HocaId);
             //Console.WriteLine(ogrenci.RHocaId);
-            //------burası veri eklemede işime yarayacak gibi---
+            //---------
             list.Add(ogrenci);
             var ogrW = JsonConvert.SerializeObject(list);
             return Json(ogrW);
